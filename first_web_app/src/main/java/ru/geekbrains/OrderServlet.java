@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
-@WebServlet(name="Order", urlPatterns={"/order"})
+@WebServlet(name="Order", urlPatterns={"/order/*"})
 public class OrderServlet extends HttpServlet{
     private static final Logger logger = LoggerFactory.getLogger(OrderServlet.class);
     private OrderRepository orderRepository;
@@ -69,7 +69,7 @@ public class OrderServlet extends HttpServlet{
         }else if(req.getServletPath().equals("/order")&&req.getPathInfo().equals("/delete_order")){
             try {
                 orderRepository.delete(Long.parseLong(req.getParameter("id")));
-                resp.sendRedirect(getServletContext().getContextPath());
+                resp.sendRedirect(getServletContext().getContextPath()+"/order");
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
@@ -80,7 +80,7 @@ public class OrderServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getServletPath().equals("/order/order_post")){
+        if(req.getServletPath().equals("/order")&&req.getPathInfo().equals("/order_post")){
             try {
                 String strId = req.getParameter("id");
                 if(strId.isEmpty()){
@@ -89,7 +89,7 @@ public class OrderServlet extends HttpServlet{
                     resp.sendRedirect(getServletContext().getContextPath());
                 }else{
                     orderRepository.update(new Order(Long.parseLong(req.getParameter("id")),req.getParameter("client"), req.getParameter("description"), new BigDecimal(req.getParameter("price"))));
-                    resp.sendRedirect(getServletContext().getContextPath());
+                    resp.sendRedirect(getServletContext().getContextPath()+"/order");
                 }
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);

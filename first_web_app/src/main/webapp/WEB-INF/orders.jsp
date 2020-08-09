@@ -21,6 +21,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
+                    <th scope="col">Client</th>
                     <th scope="col">Description</th>
                     <th scope="col">Price</th>
                     <th scope="col">Actions</th>
@@ -35,6 +36,9 @@
                         <th scope="row">
                             <c:out value="${order.id}"/>
                         </th>
+                        <td>
+                            <c:out value="${order.client}"/>
+                        </td>
 
                         <td>
                             <c:out value="${order.description}"/>

@@ -20,6 +20,11 @@
 
                 <div class="form-group">
                     <label>Description</label>
+                    <input type="text" class="form-control" id="client" name="client" placeholder="Enter client" value="${order.client}">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
                     <input type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="${order.description}">
                 </div>
                 <div class="form-group">
