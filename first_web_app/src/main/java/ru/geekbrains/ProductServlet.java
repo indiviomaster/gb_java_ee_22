@@ -1,4 +1,7 @@
 package  ru.geekbrains;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,15 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name="Product", urlPatterns="/product")
-public class Product extends HttpServlet{
+public class ProductServlet extends HttpServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("<h1>Товар</h1>");
-        resp.getWriter().println("<a href='./main'> Главная");
-        resp.getWriter().println("<a href='./catalog'> Каталог");
-        resp.getWriter().println("<a href='./product'> Товар");
-        resp.getWriter().println("<a href='./cart'> Корзина");
-        resp.getWriter().println("<a href='./order'> Заказ");
+        logger.info(".... do Get Order page"+req.getServletPath());
+
+        if(req.getServletPath().equals("/order")){
+            getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req,resp);
+        }
     }
 }
