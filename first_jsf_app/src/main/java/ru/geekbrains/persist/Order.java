@@ -5,8 +5,13 @@ import java.math.BigDecimal;
 public class Order {
 
     private Long id;
+    @NotNull(message = "Поле не должно быть пустым" )
+    @Size (min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
     private String client;
+    @Size (min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
     private String description;
+    @DecimalMin("0")
+    @DecimalMax("99999")
     private BigDecimal price;
 
     public Order(String client, String description, BigDecimal price) {
