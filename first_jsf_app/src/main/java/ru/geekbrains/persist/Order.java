@@ -1,12 +1,28 @@
 package ru.geekbrains.persist;
 
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
-
-public class Order {
-
+@Entity
+@Table(name = "orders")
+public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Поле не должно быть пустым" )
+    @Size(min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
+    @Column(length = 25)
     private String client;
+    @Size (min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
+    @Column(length = 25)
     private String description;
+    @DecimalMin("0")
+    @DecimalMax("99999")
+    @Column
     private BigDecimal price;
 
     public Order(String client, String description, BigDecimal price) {

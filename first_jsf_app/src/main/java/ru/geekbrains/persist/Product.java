@@ -1,31 +1,61 @@
 package ru.geekbrains.persist;
 
-
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product {
+@Entity
+@Table(name = "products")
+public class Product implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Поле не должно быть пустым" )
+    @Size (min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
+    @Column(length = 25)
     private String name;
+
+    @Size(min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
+    @Column(length = 25)
     private String description;
+    @DecimalMin("0")
+    @DecimalMax("99999")
+
+    @Column
     private BigDecimal price;
 
-    public Product(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
+    public int getCategory() {
+        return category;
     }
 
-    public Product(Long id, String name, String description, BigDecimal price) {
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    @Column
+    private int category;
+
+    /*@ManyToOne
+    private Category category;*/
+
+    public Product(Long id, String name, String description, BigDecimal price, int category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.category = category;
     }
 
     public Product() {
 
     }
+
 
     public Long getId() {
         return id;
