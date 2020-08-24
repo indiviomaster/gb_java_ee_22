@@ -1,5 +1,7 @@
 package ru.geekbrains.controller;
 
+import ru.geekbrains.persist.Category;
+import ru.geekbrains.persist.CategoryRepository;
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
 import javax.enterprise.context.SessionScoped;
@@ -15,6 +17,9 @@ public class ProductController implements Serializable {
 
     @Inject
     private ProductRepository productRepository;
+
+    @Inject
+    private CategoryRepository categoryRepository;
 
     private Product product;
 
@@ -51,5 +56,10 @@ public class ProductController implements Serializable {
             productRepository.insert(product);
         }
         return "/index.xhtml?faces-redirect=true";
+
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }

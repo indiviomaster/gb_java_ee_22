@@ -18,7 +18,7 @@
 <h:body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Заказы</a>
+        <a class="navbar-brand" href="#">Категории</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,6 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="Товары" outcome="index"/>
-
                 </li>
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="Категории" outcome="categories"/>
@@ -46,39 +45,32 @@
 
     <div class="container">
         <div class="row py-2">
-            <h:form id="ordersForm">
+            <h:form id="productsForm">
                 <div class="col-12">
-                    <h:commandButton value="Добавить заказ" styleClass="btn btn-primary"
-                                     action="#{orderController.createOrder()}"/>
+                    <h:commandButton value="Добавить категорию" styleClass="btn btn-primary"
+                                     action="#{categoryController.createCategory()}"/>
                 </div>
 
                 <div class="col-12">
-                    <h:dataTable value="#{orderController.allOrders}"
+                    <h:dataTable value="#{categoryController.allCategories}"
                                  styleClass="table table-bordered my-2"
-                                 var="order">
+                                 var="cats">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            #{order.id}
+                            #{cats.id}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Client</f:facet>
-                            #{order.client}
+                            <f:facet name="header">Name</f:facet>
+                            #{cats.name}
                         </h:column>
-                        <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            #{order.description}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Price</f:facet>
-                            #{order.price}
-                        </h:column>
+
                         <h:column>
                             <f:facet name="header">Action</f:facet>
                             <h:commandButton value="Edit" styleClass="btn btn-success"
-                                             action="#{orderController.editOrder(order)}"/>
+                                             action="#{productController.editProduct(prod)}"/>
                             <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{orderController.deleteOrder(order)}">
-                                <f:ajax event="click" render="ordersForm"/>
+                                             action="#{productController.deleteProduct(prod)}">
+                                <f:ajax event="click" render="productsForm"/>
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>
