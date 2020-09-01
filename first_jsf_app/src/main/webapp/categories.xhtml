@@ -29,12 +29,16 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="Товары" outcome="index"/>
+
                 </li>
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="Категории" outcome="categories"/>
                 </li>
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="Заказы" outcome="orders"/>
+                </li>
+                <li class="nav-item active">
+                    <h:link styleClass="nav-link" value="Корзина" outcome="cart"/>
                 </li>
                 <li class="nav-item active">
                     <h:link styleClass="nav-link" value="О нас" outcome="about"/>
@@ -67,9 +71,9 @@
                         <h:column>
                             <f:facet name="header">Action</f:facet>
                             <h:commandButton value="Edit" styleClass="btn btn-success"
-                                             action="#{productController.editProduct(prod)}"/>
+                                             action="#{categoryController.editCategory(cats)}"/>
                             <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{productController.deleteProduct(prod)}">
+                                             action="#{categoryController.deleteCategory(cats)}">
                                 <f:ajax event="click" render="productsForm"/>
                             </h:commandButton>
                         </h:column>

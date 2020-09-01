@@ -24,27 +24,16 @@ public class Product implements Serializable {
     @Size(min = 2 , max = 25 ,message = "Поле должно содержать от 2 до 25 символов" )
     @Column(length = 25)
     private String description;
+
     @DecimalMin("0")
     @DecimalMax("99999")
-
     @Column
     private BigDecimal price;
 
-    public int getCategory() {
-        return category;
-    }
+    @ManyToOne
+    private Category category;
 
-    public void setCategory(int category) {
-        this.category = category;
-    }
-
-    @Column
-    private int category;
-
-    /*@ManyToOne
-    private Category category;*/
-
-    public Product(Long id, String name, String description, BigDecimal price, int category) {
+    public Product(Long id, String name, String description, BigDecimal price, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,9 +42,7 @@ public class Product implements Serializable {
     }
 
     public Product() {
-
     }
-
 
     public Long getId() {
         return id;
@@ -88,4 +75,13 @@ public class Product implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 }

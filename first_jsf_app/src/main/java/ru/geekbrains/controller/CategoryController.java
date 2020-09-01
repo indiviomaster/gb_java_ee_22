@@ -2,11 +2,10 @@ package ru.geekbrains.controller;
 
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
-import ru.geekbrains.persist.Product;
-import ru.geekbrains.persist.ProductRepository;
 
+
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ import java.util.List;
 @Named
 public class CategoryController implements Serializable {
 
-    @Inject
+    @EJB
     private CategoryRepository categoryRepository;
 
 
@@ -39,7 +38,7 @@ public class CategoryController implements Serializable {
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public void deleteCategory(Category category) throws SQLException {
+    public void deleteCategory(Category category) {
         categoryRepository.delete(category.getId());
     }
 
@@ -54,8 +53,7 @@ public class CategoryController implements Serializable {
         } else {
             categoryRepository.insert(category);
         }
-        return "/index.xhtml?faces-redirect=true";
+        return "/categories.xhtml?faces-redirect=true";
 
     }
-
 }

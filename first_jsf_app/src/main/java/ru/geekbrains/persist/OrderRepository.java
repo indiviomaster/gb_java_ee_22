@@ -1,65 +1,36 @@
 package ru.geekbrains.persist;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
-
-import javax.inject.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import javax.transaction.SystemException;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
-import java.math.BigDecimal;
 import java.sql.*;
-
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class OrderRepository {
+
+    private static final Logger logger = LoggerFactory.getLogger(CategoryRepository.class);
 
     @PersistenceContext(unitName = "ds")
     private EntityManager entityManager;
-    @Resource
-    private UserTransaction userTransaction;
 
     public OrderRepository() {
     }
 
 
-    @PostConstruct
-    public void init() throws SQLException {
-
-        if(this.findAll().isEmpty()){
-            try {
-                userTransaction.begin();
-                this.insert(new Order(-1L,"Михаил", "Тува", new BigDecimal(120)));
-                this.insert(new Order(-1L,"Николай", "Крассное",new BigDecimal(200)));
-                this.insert(new Order(-1L,"Вера", "СПб", new BigDecimal(320)));
-                this.insert(new Order(-1L,"Ольга", "Москва", new BigDecimal(60)));
-                userTransaction.commit();
-            } catch (Exception e) {
-                try {
-                    userTransaction.rollback();
-                } catch (SystemException systemException) {
-                    systemException.printStackTrace();
-                }
-            }
-        }
-    }
-
-    @Transactional
-    public void insert(Order order) throws SQLException {
+    @TransactionAttribute
+    public void insert(Order order) {
         entityManager.persist(order);
     }
-    @Transactional
-    public void update(Order order) throws SQLException {
+    @TransactionAttribute
+    public void update(Order order) {
         entityManager.merge(order);
     }
-    @Transactional
+    @TransactionAttribute
     public void delete(long id) throws SQLException {
         Order order =  entityManager.find(Order.class,id);
         if(order!=null){
@@ -78,7 +49,7 @@ public class OrderRepository {
 
     }
 
-    public List<Order> findAll() throws SQLException {
+    public List<Order> findAll() {
         return entityManager.createQuery("from Order",Order.class).getResultList();
     }
 
