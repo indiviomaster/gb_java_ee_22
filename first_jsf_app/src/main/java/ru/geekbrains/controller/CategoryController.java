@@ -1,9 +1,7 @@
 package ru.geekbrains.controller;
 
-import ru.geekbrains.persist.Category;
-import ru.geekbrains.persist.CategoryRepository;
-
-
+import ru.geekbrains.service.CategoryRepr;
+import ru.geekbrains.service.CategoryService;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -16,42 +14,42 @@ import java.util.List;
 public class CategoryController implements Serializable {
 
     @EJB
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
 
-    private Category category;
+    private CategoryRepr category;
 
-    public Category getCategory() {
+    public CategoryRepr getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryRepr category) {
         this.category = category;
     }
 
-    public List<Category> getAllCategories() throws SQLException {
-        return categoryRepository.findAll();
+    public List<CategoryRepr> getAllCategories() throws SQLException {
+        return categoryService.findAll();
     }
 
-    public String editCategory(Category category) {
+    public String editCategory(CategoryRepr category) {
         this.category = category;
         return "/category.xhtml?faces-redirect=true";
     }
 
-    public void deleteCategory(Category category) {
-        categoryRepository.delete(category.getId());
+    public void deleteCategory(CategoryRepr category) {
+        categoryService.delete(category.getId());
     }
 
     public String createCategory() {
-        this.category = new Category();
+        this.category = new CategoryRepr();
         return "/category.xhtml?faces-redirect=true";
     }
 
     public String saveCategory() throws SQLException {
         if (category.getId() != null) {
-            categoryRepository.update(category);
+            categoryService.update(category);
         } else {
-            categoryRepository.insert(category);
+            categoryService.insert(category);
         }
         return "/categories.xhtml?faces-redirect=true";
 

@@ -1,10 +1,9 @@
 package ru.geekbrains.controller;
 
-import ru.geekbrains.persist.Order;
-import ru.geekbrains.persist.OrderRepository;
-
+import ru.geekbrains.service.OrderRepr;
+import ru.geekbrains.service.OrderService;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -14,42 +13,42 @@ import java.util.List;
 @Named
 public class OrderController implements Serializable {
 
-    @Inject
-    private OrderRepository orderRepository;
+    @EJB
+    private OrderService orderService;
 
-    private Order order;
+    private OrderRepr order;
 
-    public Order getOrder() {
+    public OrderRepr getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderRepr order) {
         this.order = order;
     }
 
-    public List<Order> getAllOrders() throws SQLException {
-        return orderRepository.findAll();
+    public List<OrderRepr> getAllOrders() throws SQLException {
+        return orderService.findAll();
     }
 
-    public String editOrder(Order order) {
+    public String editOrder(OrderRepr order) {
         this.order = order;
         return "/order.xhtml?faces-redirect=true";
     }
 
-    public void deleteOrder(Order order) throws SQLException {
-        orderRepository.delete(order.getId());
+    public void deleteOrder(OrderRepr order) throws SQLException {
+        orderService.delete(order.getId());
     }
 
     public String createOrder() {
-        this.order = new Order();
+        this.order = new OrderRepr();
         return "/order.xhtml?faces-redirect=true";
     }
 
-    public String saveOrder() throws SQLException {
+    public String saveOrder() {
         if (order.getId() != null) {
-            orderRepository.update(order);
+            orderService.update(order);
         } else {
-            orderRepository.insert(order);
+            orderService.insert(order);
         }
         return "/orders.xhtml?faces-redirect=true";
     }

@@ -24,5 +24,5 @@ public class CartController {
         cartService.add(productRepr);
     }
 
-    //public void delete(ProductRepr productRepr) { CartController.delete(product.getId());  }
+
 }
