@@ -7,6 +7,7 @@ import ru.geekbrains.persist.ProductRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class CartServiceImpl implements CartService {
     public void add(ProductRepr productRepr) {
 
         productReprList.add(productRepr);
+        logger.info(productReprList.toString());
     }
 
     @Override
