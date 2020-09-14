@@ -11,12 +11,14 @@ import ru.geekbrains.persist.ProductRepository;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.jws.WebService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class ProductServiceImpl implements ProductService {
+@WebService(endpointInterface = "ru.geekbrains.service.ProductServiceWs",serviceName = "ProductService")
+public class ProductServiceImpl implements ProductService,ProductServiceRemote,ProductServiceWs {
 
     private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 

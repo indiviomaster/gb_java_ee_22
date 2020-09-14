@@ -11,6 +11,8 @@
     <modules>
         <module>first_web_app</module>
         <module>first_jsf_app</module>
+        <module>EJBClient</module>
+        <module>ws-client</module>
     </modules>
 
 </project>
