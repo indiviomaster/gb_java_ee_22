@@ -80,8 +80,10 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote,P
     }
 
 
-    /*@Override
-    public ProductRepr findByNameIdRs(String name) {
-        return (ProductRepr) productRepository.findByName(name);
-    }*/
+    @Override
+    public Optional<ProductRepr> findByName(String name) {
+        return productRepository.findByName(name).map(ProductRepr::new);
+    }
+
+
 }

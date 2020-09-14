@@ -39,13 +39,18 @@ public class ProductRepository {
         }
     }
 
-    /*public Optional<Product> findByName(String name) {
-        Product product = entityManager.find(Product.class, name);
+
+    public Optional<Product> findByName(String name) {
+        Product product = entityManager.createQuery("from Product p where p.name = :name", Product.class)
+                .setParameter("name", name)
+                .getSingleResult();
         if (product != null) {
             return Optional.of(product);
         }
         return Optional.empty();
-    }*/
+    }
+
+
 
     public Optional<Product> findById(long id) {
         Product product = entityManager.find(Product.class, id);

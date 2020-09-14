@@ -53,6 +53,11 @@ public class CategoryServiceImpl implements CategoryService, CategoryServiceRs {
     }
 
     @Override
+    public Optional<CategoryRepr> findByName(String name) {
+        return categoryRepository.findByName(name).map(CategoryRepr::new);
+    }
+
+    @Override
     public List<CategoryRepr> findAll() {
         return categoryRepository.findAll().stream()
                 .map(CategoryRepr::new)

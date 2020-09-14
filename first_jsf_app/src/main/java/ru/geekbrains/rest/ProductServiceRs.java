@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Local
 @Path("/product")
@@ -33,9 +34,9 @@ public interface ProductServiceRs {
     @Produces(MediaType.APPLICATION_JSON)
     ProductRepr findByIdRs(@PathParam("id") long id);
 
-    /*@GET
+    @GET
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    ProductRepr findByNameIdRs(@PathParam("name") String name);*/
+    Optional<ProductRepr> findByName(@PathParam("name") String name);
 
 }

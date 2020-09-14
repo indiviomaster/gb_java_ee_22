@@ -48,6 +48,7 @@ public class CategoryRepository {
                 .getResultList();
     }
 
+
     public Optional<Category> findByName(String name) {
         Category category = entityManager.createQuery("from Category c where c.name = :name", Category.class)
                 .setParameter("name", name)

@@ -38,3 +38,11 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/first_jsf_app/api/category/9
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/category/name/22
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/product/name/RestЯблоко2
