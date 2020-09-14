@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
+import ru.geekbrains.rest.CategoryServiceRs;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService, CategoryServiceRs {
 
     private final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
@@ -56,5 +57,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll().stream()
                 .map(CategoryRepr::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryRepr findByIdRs(long id) {
+        return findById(id).get();
     }
 }

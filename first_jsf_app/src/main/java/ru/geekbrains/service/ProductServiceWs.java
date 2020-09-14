@@ -10,4 +10,5 @@ public interface ProductServiceWs {
 
     @WebMethod
     List<ProductRepr> findAll();
+
 }

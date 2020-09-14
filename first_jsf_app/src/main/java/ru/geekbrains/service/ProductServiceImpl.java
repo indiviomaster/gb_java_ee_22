@@ -7,6 +7,7 @@ import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
+import ru.geekbrains.rest.ProductServiceRs;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @WebService(endpointInterface = "ru.geekbrains.service.ProductServiceWs",serviceName = "ProductService")
-public class ProductServiceImpl implements ProductService,ProductServiceRemote,ProductServiceWs {
+public class ProductServiceImpl implements ProductService,ProductServiceRemote,ProductServiceWs, ProductServiceRs {
 
     private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
@@ -72,4 +73,15 @@ public class ProductServiceImpl implements ProductService,ProductServiceRemote,P
                 .map(ProductRepr::new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ProductRepr findByIdRs(long id) {
+        return findById(id).get();
+    }
+
+
+    /*@Override
+    public ProductRepr findByNameIdRs(String name) {
+        return (ProductRepr) productRepository.findByName(name);
+    }*/
 }

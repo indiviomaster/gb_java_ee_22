@@ -39,6 +39,14 @@ public class ProductRepository {
         }
     }
 
+    /*public Optional<Product> findByName(String name) {
+        Product product = entityManager.find(Product.class, name);
+        if (product != null) {
+            return Optional.of(product);
+        }
+        return Optional.empty();
+    }*/
+
     public Optional<Product> findById(long id) {
         Product product = entityManager.find(Product.class, id);
         if (product != null) {
