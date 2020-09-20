@@ -1,0 +1,48 @@
+GET http://localhost:8080/first_jsf_app/api/product/1
+
+###
+
+POST http://localhost:8080/first_jsf_app/api/product/
+Content-Type: application/json
+
+{
+  "categoryId": 3,
+  "categoryName": "Еда",
+  "description": "Красное",
+
+  "name": "RestЯблоко2",
+  "price": 120.0000
+}
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/product
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/category
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/category/2
+
+###
+
+POST http://localhost:8080/first_jsf_app/api/category
+Content-Type: application/json
+
+{
+  "name": "RestТовары для сада"
+}
+
+###
+
+DELETE http://localhost:8080/first_jsf_app/api/category/9
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/category/name/22
+
+###
+
+GET http://localhost:8080/first_jsf_app/api/product/name/RestЯблоко2
