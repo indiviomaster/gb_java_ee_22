@@ -2,6 +2,8 @@ package ru.geekbrains.controller;
 
 import ru.geekbrains.service.CategoryRepr;
 import ru.geekbrains.service.CategoryService;
+
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @SessionScoped
 @Named
+
 public class CategoryController implements Serializable {
 
     @EJB

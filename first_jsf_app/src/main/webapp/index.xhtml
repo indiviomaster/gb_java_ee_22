@@ -41,7 +41,19 @@
                     <h:link styleClass="nav-link" value="Корзина" outcome="cart"/>
                 </li>
                 <li class="nav-item active">
+                    <h:link styleClass="nav-link" value="Пользователи" outcome="admin/users" rendered="#{request.isUserInRole('ADMIN')}"/>
+                </li>
+                <li class="nav-item active">
                     <h:link styleClass="nav-link" value="О нас" outcome="about"/>
+                </li>
+                <li class="nav-item active">
+                <h:form rendered="#{request.userPrincipal == null}">
+                    <h:link styleClass="nav-link" value="Логин" outcome="login"/>
+                </h:form>
+
+                <h:form rendered="#{request.userPrincipal != null}">
+                    <h:commandLink action="#{userController.logout()}" value="Logout #{request.userPrincipal.name}" />
+                </h:form>
                 </li>
             </ul>
         </div>
